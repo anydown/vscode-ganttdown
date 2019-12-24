@@ -22,7 +22,11 @@ There should be many issues, like a human's life.
 
 Users appreciate release notes as you update your extension.
 
-### 1.0.0
+### 0.0.2
+
+Fix package.json
+
+### 0.0.1
 
 Initial release of GanttDown
 
