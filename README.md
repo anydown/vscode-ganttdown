@@ -1,5 +1,7 @@
 # VSCode GanttDown Extension
 
+![ganttdown-vscode](https://user-images.githubusercontent.com/3132889/71410319-210b0700-2688-11ea-88ea-f3f06b49a8a5.gif)
+
 ## Features
 
 ガントが編集できます。 `.gantt`拡張子のテキストファイルを作る必要があります。
