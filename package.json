@@ -2,7 +2,7 @@
   "name": "ganttdown",
   "displayName": "GanttDown",
   "description": "",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.41.0"
   },
@@ -15,7 +15,7 @@
   ],
   "activationEvents": [
     "onLanguage:gantt",
-    "ganttdown.showGantt"
+    "onCommand:ganttdown.showGantt"
   ],
   "main": "./out/extension.js",
   "contributes": {
