@@ -1,0 +1,74 @@
+{
+  "name": "ganttdown",
+  "displayName": "GanttDown",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.41.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:gantt"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ganttdown.showGantt",
+        "title": "Show Gantt"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "ganttdown.showGantt",
+          "when": "resourceLangId == gantt",
+          "group": "navigation"
+        }
+      ]
+    },
+    "languages": [
+      {
+        "id": "gantt",
+        "extensions": [
+          ".gantt"
+        ],
+        "aliases": [
+          "Gantt",
+          "gantt"
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "build": "parcel build front/index.js -d assets",
+    "dev": "parcel front/index.js -d assets",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.41.0",
+    "@vue/component-compiler-utils": "^3.1.0",
+    "cssnano": "^4.1.10",
+    "glob": "^7.1.5",
+    "mocha": "^6.2.2",
+    "parcel": "^1.12.4",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4",
+    "vscode-test": "^1.2.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "dependencies": {
+    "d3-scale": "^3.2.1",
+    "vue": "^2.6.11",
+    "vue-hot-reload-api": "^2.3.4"
+  }
+}
