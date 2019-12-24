@@ -1,9 +1,10 @@
 import * as util from "./gantt-util";
 
+const delimiter = ",";
 export function compile(input) {
   let data = input.split(/[\r|\n|\r\n]/).filter(item => item.length > 0);
   return data.map(item => {
-    const ary = item.split("\t");
+    const ary = item.split(delimiter);
     return {
       name: ary[0],
       start: util.getNewDate(ary[1], 0).getTime(),
@@ -32,12 +33,10 @@ export function serialize(tasks) {
   return (
     tasks
       .map(item => {
-        return `${item.name}\t${ymdFromEpoc(item.start)}\t${ymdFromEpoc(
-          item.end,
-          -1
-        )}`;
+        return `${item.name}${delimiter}${ymdFromEpoc(
+          item.start
+        )}${delimiter}${ymdFromEpoc(item.end, -1)}`;
       })
-      .join("\n") +
-    "\n"
+      .join("\n") + "\n"
   );
 }
