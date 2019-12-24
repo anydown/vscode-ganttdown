@@ -6,6 +6,10 @@
   "engines": {
     "vscode": "^1.41.0"
   },
+  "repository": {
+    "url": "https://github.com/anydown/vscode-ganttdown"
+  },
+  "publisher": "hashrock",
   "categories": [
     "Other"
   ],
@@ -46,7 +50,7 @@
     "vscode:prepublish": "npm run compile",
     "build": "parcel build front/index.js -d assets",
     "dev": "parcel front/index.js -d assets",
-    "compile": "tsc -p ./",
+    "compile": "tsc -p ./ && npm run build",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile",
     "test": "node ./out/test/runTest.js"
