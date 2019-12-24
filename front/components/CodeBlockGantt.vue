@@ -28,7 +28,7 @@
         <!-- 本日 -->
         <rect :x="todayX" fill="#343" y="-23" width="20" height="20" rx="10" ry="10" />
 
-        <g>
+        <g v-if="!longView">
           <!-- 日付 -->
           <text
             v-for="(line, index) in lines"
@@ -87,6 +87,35 @@
         />
       </g>
 
+      <!-- Month View -->
+      <g
+        :transform="`translate(${svgWidth - 24 * 4 - 0.5}, 0.5)`"
+        @mouseenter="longView = true"
+        @mouseleave="longView = false"
+        style="cursor: pointer;"
+      >
+        <rect fill="white" x="0" y="0" width="20" height="20" rx="4" ry="4" />
+        <line stroke-linecap="round" stroke-width="2" x1="5" y1="5" x2="15" y2="5" stroke="#999" />
+        <line
+          stroke-linecap="round"
+          stroke-width="2"
+          x1="7.5"
+          y1="10"
+          x2="17.5"
+          y2="10"
+          stroke="#999"
+        />
+        <line
+          stroke-linecap="round"
+          stroke-width="2"
+          x1="10"
+          y1="15"
+          x2="20"
+          y2="15"
+          stroke="#999"
+        />
+      </g>
+
       <!-- 前へ -->
       <g
         :transform="`translate(${svgWidth - 24 * 3 - 0.5}, 0.5)`"
@@ -133,11 +162,6 @@ export default {
     return {
       tasks: [],
       taskName: "",
-      lines: [],
-      displayRange: {
-        start: -2,
-        end: 24
-      },
       svgWidth: 600,
       selectedIndex: -1,
       dragOffset: {
@@ -145,7 +169,9 @@ export default {
         y: 0
       },
       dragging: "none",
-      dragoverIndex: -1
+      dragoverIndex: -1,
+      longView: false,
+      displayOffset: 0
     };
   },
   methods: {
@@ -217,16 +243,6 @@ export default {
         .range([0, this.svgWidth])
         .invert(x);
     },
-    generateLine() {
-      const start = this.timeRange[0];
-      const end = this.timeRange[1];
-      this.lines = generateLineByRange(
-        start,
-        end,
-        this.displayRange,
-        this.svgWidth
-      );
-    },
     setTasks(input) {
       this.tasks = gantt.compile(input);
     },
@@ -239,9 +255,7 @@ export default {
       this.$emit("change", gantt.serialize(this.tasks));
     },
     moveRange(offset) {
-      this.displayRange.start += offset;
-      this.displayRange.end += offset;
-      this.generateLine();
+      this.displayOffset += offset;
     }
   },
   watch: {
@@ -250,6 +264,22 @@ export default {
     }
   },
   computed: {
+    lines() {
+      const start = this.timeRange[0];
+      const end = this.timeRange[1];
+      return generateLineByRange(start, end, this.displayRange, this.svgWidth);
+    },
+    displayRange() {
+      return this.longView
+        ? {
+            start: 31 * -2,
+            end: 31 * 4
+          }
+        : {
+            start: -2 + this.displayOffset,
+            end: 24 + this.displayOffset
+          };
+    },
     selectedItem() {
       return this.tasks[this.selectedIndex];
     },
@@ -273,7 +303,6 @@ export default {
     }
   },
   mounted() {
-    this.generateLine();
     this.setTasks(this.input);
   }
 };
