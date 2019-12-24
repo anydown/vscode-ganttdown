@@ -1,9 +1,6 @@
-# 双方向編集がしたい
+# VSCode GanttDown Extension
 
-- https://github.com/henoc/svgeditor/blob/master/src/node/extension.ts
-- https://qiita.com/hakua-doublemoon/items/cfb638fe1ab43ca42cb8
-
-tutorial から始めてるけど道のりが長そう
+ガントが編集できます。 `.gantt`拡張子のテキストファイルを作る必要があります。
 
 # helloworld README
 
@@ -68,5 +65,10 @@ Added features X, Y, and Z.
 
 - [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
 - [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+
+## 参考
+
+- https://github.com/henoc/svgeditor/blob/master/src/node/extension.ts
+- https://qiita.com/hakua-doublemoon/items/cfb638fe1ab43ca42cb8
 
 **Enjoy!**
