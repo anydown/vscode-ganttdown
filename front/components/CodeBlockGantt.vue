@@ -1,52 +1,122 @@
 <template>
   <div>
-    <svg class="gantt" :width="svgWidth" :height="tasks.length * 32 + 48" @pointermove="onDrag" @pointerup="stopDrag">
+    <svg
+      class="gantt"
+      :width="svgWidth"
+      :height="tasks.length * 32 + 48"
+      @pointermove="onDrag"
+      @pointerup="stopDrag"
+    >
       <!-- 全体を32px下げる（日付用余白） -->
       <g transform="translate(0, 48)">
         <!-- 背景 -->
-        <rect class="background" x="0" y="0" :width="svgWidth" :height="tasks.length * 32"></rect>
+        <rect class="background" x="0" y="0" :width="svgWidth" :height="tasks.length * 32" />
         <g>
           <!-- 月 -->
-          <text v-for="(line, index) in lines" :x="line.x" y="-28" text-anchor="start" font-weight="900" font-size="0.8rem" fill="#9C9" :key="index">{{line.labelMonth}}</text>
+          <text
+            v-for="(line, index) in lines"
+            :x="line.x"
+            y="-28"
+            text-anchor="start"
+            font-weight="900"
+            font-size="0.8rem"
+            fill="#9C9"
+            :key="index"
+          >{{line.labelMonth}}</text>
         </g>
 
         <!-- 本日 -->
-        <rect :x="todayX" fill="#343" y=-23 width=20 height=20 rx=10 ry=10></rect>
+        <rect :x="todayX" fill="#343" y="-23" width="20" height="20" rx="10" ry="10" />
 
         <g>
-        <!-- 日付 -->
-          <text v-for="(line, index) in lines" :x="line.x + 10" y="-8" text-anchor="middle" font-size="0.8rem" :fill="line.color" :key="index">{{line.label}}</text>
+          <!-- 日付 -->
+          <text
+            v-for="(line, index) in lines"
+            :x="line.x + 10"
+            y="-8"
+            text-anchor="middle"
+            font-size="0.8rem"
+            :fill="line.color"
+            :key="index"
+          >{{line.label}}</text>
         </g>
         <g>
           <!-- 日付区切り線 -->
-          <line v-for="(line, index) in lines" :x1="line.x" y1="0" :x2="line.x" :y2="tasks.length * 32" class="gridline" :key="index" />
+          <line
+            v-for="(line, index) in lines"
+            :x1="line.x"
+            y1="0"
+            :x2="line.x"
+            :y2="tasks.length * 32"
+            class="gridline"
+            :key="index"
+          />
         </g>
         <!-- タスク -->
-        <g v-for="(task, index) in tasks" :transform="`translate(${scale(task.start)}, ${index * 32})`" :key="index" :class="{'dragging': index === selectedIndex}">
-          <rect class="task" x="0" y="4" :width="scaleLength(task.end - task.start)" height="24" @pointerdown="startDrag($event, index)"></rect>
-          <text class="taskname" x="-4" y="20" font-size="12" text-anchor="end" fill="black" line-height="32">{{task.name}}</text>
+        <g
+          v-for="(task, index) in tasks"
+          :transform="`translate(${scale(task.start)}, ${index * 32})`"
+          :key="index"
+          :class="{'dragging': index === selectedIndex}"
+        >
+          <rect
+            class="task"
+            x="0"
+            y="4"
+            :width="scaleLength(task.end - task.start)"
+            height="24"
+            @pointerdown="startDrag($event, index)"
+          />
+          <text
+            class="taskname"
+            x="-4"
+            y="20"
+            font-size="12"
+            text-anchor="end"
+            fill="black"
+            line-height="32"
+          >{{task.name}}</text>
         </g>
-        <rect v-if="dragoverIndex > -1 && dragoverIndex !== selectedIndex" class="dragover" x="0" :y="32 * dragoverIndex" :width="svgWidth" height="32"></rect>
+        <rect
+          v-if="dragoverIndex > -1 && dragoverIndex !== selectedIndex"
+          class="dragover"
+          x="0"
+          :y="32 * dragoverIndex"
+          :width="svgWidth"
+          height="32"
+        />
       </g>
 
       <!-- 前へ -->
-      <g :transform="`translate(${svgWidth - 24 * 3 - 0.5}, 0.5)`" @click="moveRange(-7)" style="cursor: pointer;">
-        <rect fill="white" x=0 y=0 width=20 height=20 rx=4 ry=4></rect>
-        <polyline points="15 5 5 10 15 15" stroke="#999" fill="none"/>
+      <g
+        :transform="`translate(${svgWidth - 24 * 3 - 0.5}, 0.5)`"
+        @click="moveRange(-7)"
+        style="cursor: pointer;"
+      >
+        <rect fill="white" x="0" y="0" width="20" height="20" rx="4" ry="4" />
+        <polyline points="15 5 5 10 15 15" stroke="#999" fill="none" />
       </g>
 
       <!-- 次へ -->
-      <g :transform="`translate(${svgWidth - 24 * 2 - 0.5}, 0.5)`" @click="moveRange(7)" style="cursor: pointer;">
-        <rect fill="white" x=0 y=0 width=20 height=20 rx=4 ry=4></rect>
-        <polyline points="5 5 15 10 5 15" stroke="#999" fill="none"/>
+      <g
+        :transform="`translate(${svgWidth - 24 * 2 - 0.5}, 0.5)`"
+        @click="moveRange(7)"
+        style="cursor: pointer;"
+      >
+        <rect fill="white" x="0" y="0" width="20" height="20" rx="4" ry="4" />
+        <polyline points="5 5 15 10 5 15" stroke="#999" fill="none" />
       </g>
 
       <!-- タスク追加 -->
-      <g :transform="`translate(${svgWidth - 24.5}, 0.5)`" @click="addTask" style="cursor: pointer;">
-        <rect fill="white" stroke="#999" x=0 y=0 width=20 height=20 rx=4 ry=4></rect>
-        <line x1=10 x2=10 y1=5 y2=15 stroke="ForestGreen"></line>
-        <line x1=5 x2=15 y1=10 y2=10 stroke="ForestGreen"></line>
-      </g>    
+      <g
+        :transform="`translate(${svgWidth - 24.5}, 0.5)`"
+        @click="addTask"
+        style="cursor: pointer;"
+      >
+        <rect fill="white" stroke="#999" x="0" y="0" width="20" height="20" rx="4" ry="4" />
+        <line x1="10" x2="10" y1="5" y2="15" stroke="ForestGreen" />
+        <line x1="5" x2="15" y1="10" y2="10" stroke="ForestGreen" />
+      </g>
     </svg>
   </div>
 </template>
@@ -240,7 +310,6 @@ function generateLineByRange(start, end, displayRange, svgWidth) {
 }
 </script>
 <style>
-
 .task {
   fill: rgb(144, 144, 255);
   cursor: pointer;
