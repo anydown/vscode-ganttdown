@@ -270,14 +270,17 @@ export default {
       return generateLineByRange(start, end, this.displayRange, this.svgWidth);
     },
     displayRange() {
+      //1つの日付は最低24px
+      const columnWidth = this.longView ? 6 : 24;
+      const viewRange = Math.floor(this.svgWidth / columnWidth);
       return this.longView
         ? {
-            start: 31 * -2,
-            end: 31 * 4
+            start: 31 * -1,
+            end: 31 * -1 + viewRange
           }
         : {
             start: -2 + this.displayOffset,
-            end: 24 + this.displayOffset
+            end: -2 + viewRange + this.displayOffset
           };
     },
     selectedItem() {
@@ -304,6 +307,11 @@ export default {
   },
   mounted() {
     this.setTasks(this.input);
+
+    window.addEventListener("resize", () => {
+      this.svgWidth = this.$el.clientWidth;
+    });
+    this.svgWidth = this.$el.clientWidth;
   }
 };
 

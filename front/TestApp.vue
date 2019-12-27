@@ -23,3 +23,9 @@ export default {
   }
 };
 </script>
+
+<style>
+body{
+  background: #1e1e1e;
+}
+</style>
