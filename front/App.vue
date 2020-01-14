@@ -1,8 +1,9 @@
 <template>
-  <gantt :input="input" @change="update"></gantt>
+  <gantt :input="input" @change="update" :is-vscode="true"></gantt>
 </template>
 <script>
-import Gantt from "./components/CodeBlockGantt.vue"
+import Gantt from "@anydown/anydown-gantt"
+import '@anydown/anydown-gantt/dist/anydown-gantt.css'
 
 const vscode = acquireVsCodeApi();
 export default {

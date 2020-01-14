@@ -5,7 +5,8 @@
   </div>
 </template>
 <script>
-import Gantt from "./components/CodeBlockGantt.vue";
+import Gantt from "@anydown/anydown-gantt"
+import '@anydown/anydown-gantt/dist/anydown-gantt.css'
 
 export default {
   components: {

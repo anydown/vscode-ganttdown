@@ -72,6 +72,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
+    "@anydown/anydown-gantt": "^1.1.2",
     "d3-scale": "^3.2.1",
     "vue": "^2.6.11",
     "vue-hot-reload-api": "^2.3.4"
