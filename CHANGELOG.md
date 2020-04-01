@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/anydown/vscode-ganttdown/compare/v0.2.0...v0.2.2) (2020-04-01)
+
+
+### Bug Fixes
+
+* listener bug if activeTextEditor is undefined ([2b4131d](https://github.com/anydown/vscode-ganttdown/commit/2b4131d))
+
+
+
 <a name="0.2.0"></a>
 # 0.2.0 (2020-01-14)
 
