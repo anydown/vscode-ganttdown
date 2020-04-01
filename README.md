@@ -18,18 +18,6 @@ None.
 
 There should be many issues, like a human's life.
 
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 0.0.2
-
-Fix package.json
-
-### 0.0.1
-
-Initial release of GanttDown
-
 ## 参考
 
 - https://github.com/henoc/svgeditor/blob/master/src/node/extension.ts

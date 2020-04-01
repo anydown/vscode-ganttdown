@@ -3,6 +3,7 @@
   "displayName": "GanttDown",
   "description": "",
   "version": "0.2.1",
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.41.0"
   },
@@ -73,7 +74,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
-    "@anydown/anydown-gantt": "^1.1.2",
+    "@anydown/anydown-gantt": "^1.3.0",
     "d3-scale": "^3.2.1",
     "vue": "^2.6.11",
     "vue-hot-reload-api": "^2.3.4"
