@@ -866,7 +866,7 @@
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
 
-"@types/vscode@^1.48.0":
+"@types/vscode@^1.41.0":
   version "1.48.0"
   resolved "https://registry.yarnpkg.com/@types/vscode/-/vscode-1.48.0.tgz#c1841ccf80086d53b35a9d7f2eb3b4d949bd2d2f"
 
