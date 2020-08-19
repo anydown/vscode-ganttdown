@@ -4,11 +4,9 @@
 
 ## Features
 
-ガントが編集できます。 `.gantt`拡張子のテキストファイルを作る必要があります。
+This is an extension for editing Gantt. You need to create a text file with the `.gantt` extension.
 
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+ガントを編集できます。 `.gantt`拡張子のテキストファイルを作る必要があります。
 
 ## Extension Settings
 
